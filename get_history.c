@@ -3,13 +3,14 @@
 /**
  * get_history - gets the history file
  * @info: a pointer to the info_t structure
+ * @info_t: structure
  *
  * Return: Always 0
  */
 
 char *get_history(info_t, *info)
 {
-char *buf_fer *dir_ect;
+char *buf_fer * dir_ect;
 
 dir_ect = _getenv(info, "HOME=");
 if (!dir_ect)
@@ -32,6 +33,7 @@ return (buf_fer);
 /**
  * print_history - prins the command history
  * @info: A pointer to the info_t structure
+ * @info_t: structure
  *
  * Return: Always 0
  */
@@ -48,7 +50,7 @@ return (-1);
 }
 fd = open(file_name, O_CREAT | O_TRUNC | RDWR, 0644);
 free(file_name);
-if (fd = -1)
+if (fd == -1)
 {
 return (-1);
 }
@@ -65,6 +67,7 @@ return (1);
 /**
  * load_history - reads command history from a file
  * @info: A pointer to the info_t structure
+ * @info_t: structure
  *
  * Return: Always 0
  */
@@ -136,41 +139,53 @@ while (info->histcount-- >= HIST_MAX)
 delete_node_at_index(&(info->history), 0);
 }
 
-renumber_history(info);
+update_history_numbers(info);
 return (info->histcount);
 }
 }
 
 /**
  * update_history - updates the history list
- * @info: A pointer to the 
+ * @info: A pointer to the info_t structure
+ * @buf_fer: String to be added to the history
+ * @linecount: The line count associated with the history entry
+ *
+ * Return: Always 0
+ */
+
+int update_history(info_t *info, char *buf_fer, int linecount)
+{
+list_t *node = NULL;
+
+if (info->history)
+{
+node = info->history;
+}
+add_node_end(&node, buf_fer, linecount);
+if (!info->history)
+{
+info->history = node;
+}
+return (0);
+}
 
 
+/**
+ * update_history_numbers - Update the history linked list
+ * @info: A pointer to the info_t structure
+ *
+ * Return: Always 0
+ */
 
+int update_history_numbers(info_t *info)
+{
+list_t *node = info->history;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int k = 0;
+while (node)
+{
+node->num = k++;
+node = node->next;
+}
+return (info->histcount = k);
+}
