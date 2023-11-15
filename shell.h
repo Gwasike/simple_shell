@@ -111,4 +111,8 @@ NULL,
 0
 }
 
+
+// Task 0
+int main(void);
+
 #endif
