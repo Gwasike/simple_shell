@@ -140,3 +140,37 @@ renumber_history(info);
 return (info->histcount);
 }
 }
+
+/**
+ * update_history - updates the history list
+ * @info: A pointer to the 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
