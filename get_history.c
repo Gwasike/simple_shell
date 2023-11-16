@@ -8,7 +8,7 @@
  * Return: Always 0
  */
 
-char *get_history(info_t, *info)
+char *get_history(info_t *info)
 {
 char *buf_fer * dir_ect;
 
@@ -38,7 +38,7 @@ return (buf_fer);
  * Return: Always 0
  */
 
-int print_history(info_t, *info)
+int print_history(info_t *info)
 {
 ssize_t fd;
 char *file_name = get_history(info);
@@ -72,7 +72,7 @@ return (1);
  * Return: Always 0
  */
 
-int load_history(info_t, *info)
+int load_history(info_t *info)
 {
 int k, last = 0, linecount = 0;
 ssize_t fd, rdlen, fsize = 0;

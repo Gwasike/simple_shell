@@ -9,7 +9,7 @@
 
 int main(void)
 {
-int age = 20;
+int num = 20;
 
 printf("The num is: %d", num);
 

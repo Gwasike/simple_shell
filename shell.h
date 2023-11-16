@@ -11,6 +11,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <stddef.h>
 
 #define CMD_NORM	0
 #define CMD_OR		1
@@ -30,7 +31,7 @@
 #define USE_GETLINE 0
 #define USE_STRTOK 0
 
-extern char **environ
+extern char **environ;
 
 /**
  * struct liststr - singly linked list
@@ -41,9 +42,9 @@ extern char **environ
 
 typedef struct liststr
 {
-	int num;
-	char *str;
-	struct liststr *next;
+int num;
+char *str;
+struct liststr *next;
 } list_t;
 
 /**
@@ -111,8 +112,46 @@ NULL,
 0
 }
 
+/**
+ *struct builtin - contains a builtin string and related function
+ *@type: the builtin command flag
+ *@func: the function
+ */
 
-// Task 0
+typedef struct builtin
+{
+char *type;
+int (*func)(info_t *);
+} builtin_table;
+
+/* Task 0 */
 int main(void);
+
+/* get_env.c */
+char **get_environstr(info_t *info);
+int unset_envron(info_t *info, char *var);
+int set_envron(info_t *info, char *var, char *value);
+
+/* shell_enviro.c */
+int my_environment(info_t *info);
+char *get_enviro(info_t *info, const char *name);
+int set_environment(info_t *info);
+int unset_environment(info_t *info);
+int initialize_environment(info_t *info);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #endif
