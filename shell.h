@@ -55,8 +55,8 @@ void sisifo(char *prompt, data_of_program *data);
 void handle_ctrl_c(int opr UNUSED);
 
 
-int _getline(data_of_program *data);
-int check_logic_ops(char *array_commands[], int i, char array_operators[]);
+int read_command_line(data_of_program *data);
+int split_logical_operators(char *array_commands[], int i, char array_operators[]);
 
 
 void expand_variables(data_of_program *data);
@@ -64,7 +64,7 @@ void expand_alias(data_of_program *data);
 int buffer_add(char *buffer, char *str_to_add);
 
 
-void tokenize(data_of_program *data);
+void split_string(data_of_program *data);
 char *_strtok(char *line, char *delim);
 
 

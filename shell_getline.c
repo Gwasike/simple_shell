@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
-* check_logic_ops - checks and split for && and || operators
+* split_logical_operators - checks and split for && and || operators
 * @array_commands: array of the commands.
 * @k: index in the array_commands to be checked
 * @array_operators: array of the logical operators for each previous command
 *
 * Return: Always 0
 */
-int check_logic_ops(char *array_commands[], int k, char array_operators[])
+int split_logical_operators(char *array_commands[], int k, char array_operators[])
 {
 char *temp = NULL;
 int j;
@@ -42,12 +42,12 @@ return (k);
 }
 
 /**
-* _getline - read one line from the prompt.
+* read_command_line - read one line from the prompt.
 * @data: struct for the program's data.
 *
 * Return: Always 0
 */
-int _getline(data_of_program *data)
+int read_command_line(data_of_program *data)
 {
 char buff[BUFFER_SIZE] = {'\0'};
 static char *array_commands[10] = {NULL};
@@ -73,7 +73,7 @@ return (-1);
 k = 0;
 do {
 array_commands[k] = str_duplicate(_strtok(k ? NULL : buff, "\n;"));
-k = check_logic_ops(array_commands, k, array_operators);
+k = split_logical_operators(array_commands, k, array_operators);
 } while (array_commands[k++]);
 }
 
