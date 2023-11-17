@@ -20,17 +20,13 @@ else
 {
 for (k = 0; data->tokens[1][k]; k++)
 {
-
 if (data->tokens[1][k] == '=')
 {
-
 var_copy = str_duplicate(env_get_key(cpname, data));
 if (var_copy != NULL)
 {
 env_set_key(cpname, data->tokens[1] + k + 1, data);
 }
-
-
 print_environ(data);
 if (env_get_key(cpname, data) == NULL)
 {

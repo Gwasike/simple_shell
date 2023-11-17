@@ -147,7 +147,7 @@ return (0);
 /**
  * builtin_alias - Add, remove, or show aliases.
  * @data: Struct for the program's data.
- * 
+ *
  * Return: Always 0
  */
 int builtin_alias(data_of_program *data)
