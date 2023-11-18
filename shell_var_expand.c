@@ -25,14 +25,14 @@ line[k--] = '\0';
 else if (line[k] == '$' && line[k + 1] == '?')
 {
 line[k] = '\0';
-long_to_string(errno, expansion, 10);
+convert_long_to_string(errno, expansion, 10);
 buffer_add(line, expansion);
 buffer_add(line, data->input_line + k + 2);
 }
 else if (line[k] == '$' && line[k + 1] == '$')
 {
 line[k] = '\0';
-long_to_string(getpid(), expansion, 10);
+convert_long_to_string(getpid(), expansion, 10);
 buffer_add(line, expansion);
 buffer_add(line, data->input_line + k + 2);
 }
@@ -47,17 +47,17 @@ for (m = 1; line[k + m] && line[k + m] != ' '; m++)
 expansion[m - 1] = line[k + m];
 }
 expansion[m - 1] = '\0';
-temp = env_get_key(expansion, data);
+temp = get_environment_value(expansion, data);
 line[k] = '\0';
 buffer_add(line, line + k + m);
 temp ? buffer_add(line, temp) : 1;
 buffer_add(line, expansion);
 }
 }
-if (!str_compare(data->input_line, line, 0))
+if (!string_compare(data->input_line, line, 0))
 {
 free(data->input_line);
-data->input_line = str_duplicate(line);
+data->input_line = string_duplicate(line);
 }
 }
 
@@ -91,7 +91,7 @@ expansion[0] = '\0';
 buffer_add(expansion, line + k + m);
 line[k] = '\0';
 buffer_add(line, temp);
-line[str_length(line)] = '\0';
+line[string_length(line)] = '\0';
 buffer_add(line, expansion);
 was_expanded = 1;
 }
@@ -100,7 +100,7 @@ break;
 if (was_expanded)
 {
 free(data->input_line);
-data->input_line = str_duplicate(line);
+data->input_line = string_duplicate(line);
 }
 }
 
@@ -114,7 +114,7 @@ data->input_line = str_duplicate(line);
 int buffer_add(char *buffer, char *str_to_add)
 {
 int length, k;
-length = str_length(buffer);
+length = string_length(buffer);
 for (k = 0; str_to_add[k]; k++)
 {
 buffer[length + k] = str_to_add[k];

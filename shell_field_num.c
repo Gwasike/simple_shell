@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * long_to_string - converts a number to a string.
+ * convert_long_to_string - converts a number to a string.
  * @number: number to be converten in an string.
  * @string: buffer to save the number as string.
  * @base: base to convert number.
  *
  * Return: Always 0
  */
-void long_to_string(long number, char *string, int base)
+void convert_long_to_string(long number, char *string, int base)
 {
 int index = 0, inNegative = 0;
 long cociente = number;
@@ -42,38 +42,38 @@ string[index++] = '-';
 }
 
 string[index] = '\0';
-str_reverse(string);
+string_reverse(string);
 }
 
 /**
- * _atoi - convert a string to an integer.
- * @s: pointer to str origen.
+ * convert_str_to_int - convert a str to an int
+ * @a: pointer to str origen.
  *
  * Return: Always 0
  */
-int _atoi(char *s)
+int convert_str_to_int(char *a)
 {
 int sign = 1;
 unsigned int number = 0;
 
-while (!('0' <= *s && *s <= '9') && *s != '\0')
+while (!('0' <= *a && *a <= '9') && *a != '\0')
 {
-if (*s == '-')
+if (*a == '-')
 {
 sign *= -1;
 }
-if (*s == '+')
+if (*a == '+')
 {
 sign *= +1;
 }
-s++;
+a++;
 }
 
-while ('0' <= *s && *s <= '9' && *s != '\0')
+while ('0' <= *a && *a <= '9' && *a != '\0')
 {
 
-number = (number * 10) + (*s - '0');
-s++;
+number = (number * 10) + (*a - '0');
+a++;
 }
 return (number *sign);
 }

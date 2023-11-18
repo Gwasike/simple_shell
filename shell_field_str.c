@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * str_length - returns the length of a string.
+ * string_length - returns the length of a string.
  * @str: pointer to string.
  * Return: The length of string.
  */
-int str_length(char *str)
+int string_length(char *str)
 {
 int length = 0;
 
@@ -21,12 +21,12 @@ return (--length);
 }
 
 /**
- * str_duplicate - duplicates a string
+ * string_duplicate - duplicates a string
  * @str: String to be copied
  *
  * Return: Always 0
  */
-char *str_duplicate(char *str)
+char *string_duplicate(char *str)
 {
 char *result;
 int length, i;
@@ -36,7 +36,7 @@ if (str == NULL)
 return (NULL);
 }
 
-length = str_length(str) + 1;
+length = string_length(str) + 1;
 
 result = malloc(sizeof(char) * length);
 
@@ -55,14 +55,14 @@ return (result);
 }
 
 /**
- * str_compare - Compare two strings
+ * string_compare - Compare two strings
  * @s1: String one, or the shorter
  * @s2: String two, or the longer
  * @num: number of characters to be compared, 0 if infinite
  *
  * Return: Always 0
  */
-int str_compare(char *s1, char *s2, int num)
+int string_compare(char *s1, char *s2, int num)
 {
 int iterator;
 
@@ -78,7 +78,7 @@ return (0);
 
 if (num == 0)
 {
-if (str_length(s1) != str_length(s2))
+if (string_length(s1) != string_length(s2))
 {
 return (0);
 }
@@ -105,13 +105,13 @@ return (1);
 }
 
 /**
- * str_concat - concatenates two strings.
+ * string_concatenate - concatenates two strings.
  * @s1: String to be concatenated
  * @s2: String to be concatenated
  *
  * Return: Always 0
  */
-char *str_concat(char *s1, char *s2)
+char *string_concatenate(char *s1, char *s2)
 {
 char *result;
 int length1 = 0, length2 = 0;
@@ -120,13 +120,13 @@ if (s1 == NULL)
 {
 s1 = "";
 }
-length1 = str_length(s1);
+length1 = string_length(s1);
 
 if (s2 == NULL)
 {
 s2 = "";
 }
-length2 = str_length(s2);
+length2 = string_length(s2);
 
 result = malloc(sizeof(char) * (length1 + length2 + 1));
 if (result == NULL)
@@ -153,13 +153,13 @@ return (result);
 }
 
 /**
- * str_reverse - reverses a string.
+ * string_reverse - reverses a string.
  * @str: pointer to string.
  * Return: Always 0
  */
-void str_reverse(char *str)
+void string_reverse(char *str)
 {
-int k = 0, length = str_length(str) - 1;
+int k = 0, length = string_length(str) - 1;
 char hold;
 
 while (k < length)

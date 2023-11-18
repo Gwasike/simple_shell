@@ -19,8 +19,8 @@ if (array_commands[k][j] == '&' && array_commands[k][j + 1] == '&')
 {
 temp = array_commands[k];
 array_commands[k][j] = '\0';
-array_commands[k] = str_duplicate(array_commands[k]);
-array_commands[k + 1] = str_duplicate(temp + j + 2);
+array_commands[k] = string_duplicate(array_commands[k]);
+array_commands[k + 1] = string_duplicate(temp + j + 2);
 k++;
 array_operators[k] = '&';
 free(temp);
@@ -30,8 +30,8 @@ if (array_commands[k][j] == '|' && array_commands[k][j + 1] == '|')
 {
 temp = array_commands[k];
 array_commands[k][j] = '\0';
-array_commands[k] = str_duplicate(array_commands[k]);
-array_commands[k + 1] = str_duplicate(temp + j + 2);
+array_commands[k] = string_duplicate(array_commands[k]);
+array_commands[k + 1] = string_duplicate(temp + j + 2);
 k++;
 array_operators[k] = '|';
 free(temp);
@@ -72,7 +72,7 @@ return (-1);
 
 k = 0;
 do {
-array_commands[k] = str_duplicate(_strtok(k ? NULL : buff, "\n;"));
+array_commands[k] = string_duplicate(_strtok(k ? NULL : buff, "\n;"));
 k = split_logical_operators(array_commands, k, array_operators);
 } while (array_commands[k++]);
 }
@@ -84,5 +84,5 @@ array_commands[k] = array_commands[k + 1];
 array_operators[k] = array_operators[k + 1];
 }
 
-return (str_length(data->input_line));
+return (string_length(data->input_line));
 }

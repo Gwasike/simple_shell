@@ -21,7 +21,7 @@ if ((data->tokens[1][k] < '0' || data->tokens[1][k] > '9')
 errno = 2;
 return (2);
 }
-errno = _atoi(data->tokens[1]);
+errno = convert_str_to_int(data->tokens[1]);
 }
 free_all_data(data);
 exit(errno);
@@ -35,21 +35,21 @@ exit(errno);
  */
 int builtin_cd(data_of_program *data)
 {
-char *dir_home = env_get_key("HOME", data), *dir_old = NULL;
+char *dir_home = get_environment_value("HOME", data), *dir_old = NULL;
 char old_dir[128] = {0};
 int error_code = 0;
 
 if (data->tokens[1])
 {
-if (str_compare(data->tokens[1], "-", 0))
+if (string_compare(data->tokens[1], "-", 0))
 {
-dir_old = env_get_key("OLDPWD", data);
+dir_old = get_environment_value("OLDPWD", data);
 if (dir_old)
 {
 error_code = set_work_directory(data, dir_old);
 }
-_print(env_get_key("PWD", data));
-_print("\n");
+write_to_stdout(get_environment_value("PWD", data));
+write_to_stdout("\n");
 
 return (error_code);
 }
@@ -84,7 +84,7 @@ int err_code = 0;
 
 getcwd(old_dir, 128);
 
-if (!str_compare(old_dir, new_dir, 0))
+if (!string_compare(old_dir, new_dir, 0))
 {
 err_code = chdir(new_dir);
 if (err_code == -1)
@@ -92,9 +92,9 @@ if (err_code == -1)
 errno = 2;
 return (3);
 }
-env_set_key("PWD", new_dir, data);
+set_env_key("PWD", new_dir, data);
 }
-env_set_key("OLDPWD", old_dir, data);
+set_env_key("OLDPWD", old_dir, data);
 return (0);
 }
 
@@ -113,7 +113,7 @@ messages[0] = HELP_MSG;
 
 if (data->tokens[1] == NULL)
 {
-_print(messages[0] + 6);
+write_to_stdout(messages[0] + 6);
 return (1);
 }
 if (data->tokens[2] != NULL)
@@ -131,10 +131,10 @@ messages[5] = HELP_CD_MSG;
 
 for (k = 0; messages[k]; k++)
 {
-length = str_length(data->tokens[1]);
-if (str_compare(data->tokens[1], messages[k], length))
+length = string_length(data->tokens[1]);
+if (string_compare(data->tokens[1], messages[k], length))
 {
-_print(messages[k] + length + 1);
+write_to_stdout(messages[k] + length + 1);
 return (1);
 }
 }

@@ -15,15 +15,15 @@ builtins options[] = {
 {"help", builtin_help},
 {"cd", builtin_cd},
 {"alias", builtin_alias},
-{"env", builtin_env},
-{"setenv", builtin_set_env},
-{"unsetenv", builtin_unset_env},
+{"env", execute_builtin_env},
+{"setenv", execute_builtin_set_env},
+{"unsetenv", execute_builtin_unset_env},
 {NULL, NULL}
 };
 
 for (k = 0; options[k].builtin != NULL; k++)
 {
-if (str_compare(options[k].builtin, data->command_name, 0))
+if (string_compare(options[k].builtin, data->command_name, 0))
 {
 return (options[k].function(data));
 }

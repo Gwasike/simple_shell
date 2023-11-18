@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * execute - Executes a command with its entire path variables.
+ * execute_var - Executes a command with its entire path variables.
  * @data: A pointer to the program's data.
  *
  * Return: Always 0
  */
-int execute(data_of_program *data)
+int execute_var(data_of_program *data)
 {
 int a = 0, status;
 pid_t pid;

@@ -14,10 +14,10 @@ char buffer[250] = {'\0'};
 
 if (data->alias_list)
 {
-alias_length = str_length(alias);
+alias_length = string_length(alias);
 for (k = 0; data->alias_list[k]; k++)
 {
-if (!alias || (str_compare(data->alias_list[k], alias, alias_length)
+if (!alias || (string_compare(data->alias_list[k], alias, alias_length)
 && data->alias_list[k][alias_length] == '='))
 {
 for (m = 0; data->alias_list[k][m]; m++)
@@ -32,7 +32,7 @@ buffer[m + 1] = '\0';
 buffer_add(buffer, "'");
 buffer_add(buffer, data->alias_list[k] + m + 1);
 buffer_add(buffer, "'\n");
-_print(buffer);
+write_to_stdout(buffer);
 }
 }
 }
@@ -56,12 +56,12 @@ if (name == NULL || data->alias_list == NULL)
 return (NULL);
 }
 
-alias_length = str_length(name);
+alias_length = string_length(name);
 
 for (k = 0; data->alias_list[k]; k++)
 {
 
-if (str_compare(name, data->alias_list[k], alias_length) &&
+if (string_compare(name, data->alias_list[k], alias_length) &&
 data->alias_list[k][alias_length] == '=')
 {
 
@@ -88,7 +88,6 @@ if (alias_string == NULL ||  data->alias_list == NULL)
 {
 return (1);
 }
-
 for (k = 0; alias_string[k]; k++)
 if (alias_string[k] != '=')
 {
@@ -96,31 +95,26 @@ buffer[k] = alias_string[k];
 }
 else
 {
-
 temp = get_alias(data, alias_string + k + 1);
 break;
 }
-
 for (m = 0; data->alias_list[m]; m++)
-if (str_compare(buffer, data->alias_list[m], k) &&
+if (string_compare(buffer, data->alias_list[m], k) &&
 data->alias_list[m][k] == '=')
 {
-
 free(data->alias_list[m]);
 break;
 }
-
 if (temp)
 {
-
 buffer_add(buffer, "=");
 buffer_add(buffer, temp);
-data->alias_list[m] = str_duplicate(buffer);
+data->alias_list[m] = string_duplicate(buffer);
 }
 else
 {
 
-data->alias_list[m] = str_duplicate(alias_string);
+data->alias_list[m] = string_duplicate(alias_string);
 }
 return (0);
 }

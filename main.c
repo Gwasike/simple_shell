@@ -33,8 +33,8 @@ return 0;
  */
 void handle_ctrl_c(int opr UNUSED)
 {
-_print("\n");
-_print(PROMPT_MSG);
+write_to_stdout("\n");
+write_to_stdout(PROMPT_MSG);
 }
 
 /**
@@ -62,10 +62,10 @@ else
 data->file_descriptor = open(argv[1], O_RDONLY);
 if (data->file_descriptor == -1)
 {
-_printe(data->program_name);
-_printe(": 0: Can't open ");
-_printe(argv[1]);
-_printe("\n");
+write_to_stderr(data->program_name);
+write_to_stderr(": 0: Can't open ");
+write_to_stderr(argv[1]);
+write_to_stderr("\n");
 exit(127);
 }
 }
@@ -75,7 +75,7 @@ if (env)
 {
 for (; env[k]; k++)
 {
-data->env[k] = str_duplicate(env[k]);
+data->env[k] = string_duplicate(env[k]);
 }
 }
 data->env[k] = NULL;
@@ -99,7 +99,7 @@ int error_code = 0, string_len = 0;
 
 while (++(data->exec_counter))
 {
-_print(prompt);
+write_to_stdout(prompt);
 error_code = string_len = read_command_line(data);
 
 if (error_code == EOF)
@@ -114,10 +114,10 @@ expand_variables(data);
 split_string(data);
 if (data->tokens[0])
 {
-error_code = execute(data);
+error_code = execute_var(data);
 if (error_code != 0)
 {
-_print_error(error_code, data);
+print_error(error_code, data);
 }
 }
 free_recurrent_data(data);

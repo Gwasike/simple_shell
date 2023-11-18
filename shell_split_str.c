@@ -11,7 +11,7 @@ void split_string(data_of_program *data)
 char *delimiter = " \t";
 int k, m, counter = 2, length;
 
-length = str_length(data->input_line);
+length = string_length(data->input_line);
 if (length)
 {
 if (data->input_line[length - 1] == '\n')
@@ -39,11 +39,11 @@ exit(errno);
 }
 
 k = 0;
-data->tokens[k] = str_duplicate(_strtok(data->input_line, delimiter));
-data->command_name = str_duplicate(data->tokens[0]);
+data->tokens[k] = string_duplicate(_strtok(data->input_line, delimiter));
+data->command_name = string_duplicate(data->tokens[0]);
 
 while (data->tokens[k++])
 {
-data->tokens[k] = str_duplicate(_strtok(NULL, delimiter));
+data->tokens[k] = string_duplicate(_strtok(NULL, delimiter));
 }
 }

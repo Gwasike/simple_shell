@@ -29,7 +29,7 @@ if (data->command_name[0] == '/' || data->command_name[0] == '.')
 return (check_file(data->command_name));
 }
 free(data->tokens[0]);
-data->tokens[0] = str_concat(str_duplicate("/"), data->command_name);
+data->tokens[0] = string_concatenate(string_duplicate("/"), data->command_name);
 if (!data->tokens[0])
 {
 return (2);
@@ -44,13 +44,13 @@ return (127);
 }
 for (k = 0; directories[k]; k++)
 {
-directories[k] = str_concat(directories[k], data->tokens[0]);
+directories[k] = string_concatenate(directories[k], data->tokens[0]);
 ret_code = check_file(directories[k]);
 if (ret_code == 0 || ret_code == 126)
 {
 errno = 0;
 free(data->tokens[0]);
-data->tokens[0] = str_duplicate(directories[k]);
+data->tokens[0] = string_duplicate(directories[k]);
 free_array_of_pointers(directories);
 return (ret_code);
 }
@@ -74,12 +74,12 @@ int counter_directories = 2;
 char **tokens = NULL;
 char *PATH;
 
-PATH = env_get_key("PATH", data);
+PATH = get_environment_value("PATH", data);
 if ((PATH == NULL) || PATH[0] == '\0')
 {
 return (NULL);
 }
-PATH = str_duplicate(PATH);
+PATH = string_duplicate(PATH);
 for (k = 0; PATH[k]; k++)
 {
 if (PATH[k] == ':')
@@ -91,10 +91,10 @@ counter_directories++;
 tokens = malloc(sizeof(char *) * counter_directories);
 
 k = 0;
-tokens[k] = str_duplicate(_strtok(PATH, ":"));
+tokens[k] = string_duplicate(_strtok(PATH, ":"));
 while (tokens[k++])
 {
-tokens[k] = str_duplicate(_strtok(NULL, ":"));
+tokens[k] = string_duplicate(_strtok(NULL, ":"));
 }
 
 free(PATH);

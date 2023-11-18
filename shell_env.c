@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * env_get_key - Retrieves the value of an environment variable.
+ * get_environment_value - Retrieves the value of an environment variable.
  * @key: The environment variable of interest.
  * @data: Struct holding the program's data.
  *
  * Return: Always 0
  */
-char *env_get_key(char *key, data_of_program *data)
+char *get_environment_value(char *key, data_of_program *data)
 {
 int k, key_length = 0;
 
@@ -16,12 +16,12 @@ if (key == NULL || data->env == NULL)
 return (NULL);
 }
 
-key_length = str_length(key);
+key_length = string_length(key);
 
 for (k = 0; data->env[k]; k++)
 {
 
-if (str_compare(key, data->env[k], key_length) &&
+if (string_compare(key, data->env[k], key_length) &&
 data->env[k][key_length] == '=')
 {
 return (data->env[k] + key_length + 1);
@@ -32,14 +32,14 @@ return (NULL);
 }
 
 /**
- * env_set_key - Overwrites/Creates the value of the environment variable
+ * set_env_key - Overwrites/Creates the value of the environment variable
  * @key: Name of the variable to set.
  * @value: New value.
  * @data: Struct holding the program's data.
  *
  * Return: Always 0
  */
-int env_set_key(char *key, char *value, data_of_program *data)
+int set_env_key(char *key, char *value, data_of_program *data)
 {
 int k, key_length = 0, is_new_key = 1;
 
@@ -48,11 +48,11 @@ if (key == NULL || value == NULL || data->env == NULL)
 return (1);
 }
 
-key_length = str_length(key);
+key_length = string_length(key);
 
 for (k = 0; data->env[k]; k++)
 {
-if (str_compare(key, data->env[k], key_length) &&
+if (string_compare(key, data->env[k], key_length) &&
 data->env[k][key_length] == '=')
 {
 is_new_key = 0;
@@ -60,8 +60,8 @@ free(data->env[k]);
 break;
 }
 }
-data->env[k] = str_concat(str_duplicate(key), "=");
-data->env[k] = str_concat(data->env[k], value);
+data->env[k] = string_concatenate(string_duplicate(key), "=");
+data->env[k] = string_concatenate(data->env[k], value);
 
 if (is_new_key)
 {
@@ -71,13 +71,13 @@ return (0);
 }
 
 /**
- * env_remove_key - Removes a key from the environment.
+ * remove_env_key - Removes a key from the environment.
  * @key: The key to remove.
  * @data: Struct holding the program's data.
  *
  * Return: Always 0
  */
-int env_remove_key(char *key, data_of_program *data)
+int remove_env_key(char *key, data_of_program *data)
 {
 int k, key_length = 0;
 
@@ -86,11 +86,11 @@ if (key == NULL || data->env == NULL)
 return (0);
 }
 
-key_length = str_length(key);
+key_length = string_length(key);
 
 for (k = 0; data->env[k]; k++)
 {
-if (str_compare(key, data->env[k], key_length) &&
+if (string_compare(key, data->env[k], key_length) &&
 data->env[k][key_length] == '=')
 {
 free(data->env[k]);
@@ -109,18 +109,18 @@ return (0);
 }
 
 /**
- * print_environ - Prints the current environment variables.
+ * printEnv - Prints the current environment variables.
  * @data: Struct holding the program's data.
  *
  * Return: Always 0
  */
-void print_environ(data_of_program *data)
+void printEnv(data_of_program *data)
 {
 int m;
 
 for (m = 0; data->env[m]; m++)
 {
-_print(data->env[m]);
-_print("\n");
+write_to_stdout(data->env[m]);
+write_to_stdout("\n");
 }
 }
