@@ -23,7 +23,7 @@ prompt = PROMPT_MSG;
 }
 errno = 0;
 sisifo(prompt, data);
-return 0;
+return (0);
 }
 
 /**

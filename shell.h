@@ -56,7 +56,7 @@ void handle_ctrl_c(int opr UNUSED);
 
 
 int read_command_line(data_of_program *data);
-int split_logical_operators(char *array_commands[], int i, char array_operators[]);
+int split_log_operators(char *array_commands[], int i, char array_operators[]);
 
 
 void expand_variables(data_of_program *data);
@@ -74,20 +74,20 @@ int execute_var(data_of_program *data);
 int builtins_list(data_of_program *data);
 
 
-char **tokenize_path(data_of_program *data);
-int find_program(data_of_program *data);
+char **tokenizePath(data_of_program *data);
+int findExecutable(data_of_program *data);
 
 
-void free_array_of_pointers(char **directories);
+void free_pointers(char **directories);
 void free_recurrent_data(data_of_program *data);
 void free_all_data(data_of_program *data);
 
 
-int builtin_exit(data_of_program *data);
-int builtin_cd(data_of_program *data);
-int set_work_directory(data_of_program *data, char *new_dir);
-int builtin_help(data_of_program *data);
-int builtin_alias(data_of_program *data);
+int exitCommand(data_of_program *data);
+int cdCommand(data_of_program *data);
+int set_work_dir(data_of_program *data, char *new_dir);
+int built_help_inf(data_of_program *data);
+int builtinAlias(data_of_program *data);
 
 
 int execute_builtin_env(data_of_program *data);
@@ -113,8 +113,8 @@ void convert_long_to_string(long number, char *string, int base);
 int convert_str_to_int(char *a);
 int count_characters(char *string, char *character);
 
-int print_alias(data_of_program *data, char *alias);
-char *get_alias(data_of_program *data, char *alias);
-int set_alias(char *alias_string, data_of_program *data);
+int alias_print(data_of_program *data, char *alias);
+char *alias_get(data_of_program *data, char *alias);
+int alias_set(char *alias_string, data_of_program *data);
 
 #endif /* SHELL_H */

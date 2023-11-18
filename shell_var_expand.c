@@ -84,7 +84,7 @@ for (m = 0; line[k + m] && line[k + m] != ' '; m++)
 expansion[m] = line[k + m];
 }
 expansion[m] = '\0';
-temp = get_alias(data, expansion);
+temp = alias_get(data, expansion);
 if (temp)
 {
 expansion[0] = '\0';

@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * free_array_of_pointers - frees each pointer of an array of pointers and the
+ * free_pointers - frees each pointer of an array of pointers and the
  * array too
  * @array: array of pointers
  * Return: Always 0
  */
-void free_array_of_pointers(char **array)
+void free_pointers(char **array)
 {
 int k;
 
@@ -31,7 +31,7 @@ void free_recurrent_data(data_of_program *data)
 {
 if (data->tokens)
 {
-free_array_of_pointers(data->tokens);
+free_pointers(data->tokens);
 }
 if (data->input_line)
 {
@@ -62,6 +62,6 @@ perror(data->program_name);
 }
 }
 free_recurrent_data(data);
-free_array_of_pointers(data->env);
-free_array_of_pointers(data->alias_list);
+free_pointers(data->env);
+free_pointers(data->alias_list);
 }

@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * print_alias - Display or manipulate aliases.
+ * alias_print - Display or manipulate aliases.
  * @data: Struct for the program's data.
  * @alias: Name of the alias to be printed.
  *
  * Return: Always 0
  */
-int print_alias(data_of_program *data, char *alias)
+int alias_print(data_of_program *data, char *alias)
 {
 int k, m, alias_length;
 char buffer[250] = {'\0'};
@@ -41,13 +41,13 @@ return (0);
 }
 
 /**
- * get_alias - Retrieve aliases.
+ * alias_get - Retrieve aliases.
  * @data: Struct for the program's data.
  * @name: Name of the requested alias.
  *
  * Return: Always 0
  */
-char *get_alias(data_of_program *data, char *name)
+char *alias_get(data_of_program *data, char *name)
 {
 int k, alias_length;
 
@@ -73,13 +73,13 @@ return (NULL);
 }
 
 /**
- * set_alias - Add or override aliases.
+ * alias_set - Add or override aliases.
  * @alias_string: Alias to be set in the form (name='value').
  * @data: Struct for the program's data.
  *
  * Return: Always 0
  */
-int set_alias(char *alias_string, data_of_program *data)
+int alias_set(char *alias_string, data_of_program *data)
 {
 int k, m;
 char buffer[250] = {'0'}, *temp = NULL;
@@ -95,7 +95,7 @@ buffer[k] = alias_string[k];
 }
 else
 {
-temp = get_alias(data, alias_string + k + 1);
+temp = alias_get(data, alias_string + k + 1);
 break;
 }
 for (m = 0; data->alias_list[m]; m++)

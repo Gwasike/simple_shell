@@ -15,7 +15,7 @@ if (a != -1)
 {
 return (a);
 }
-a = find_program(data);
+a = findExecutable(data);
 if (a)
 {
 return (a);

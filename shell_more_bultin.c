@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * builtin_exit - Exit the program with the status.
+ * exitCommand - Exit the program with the status.
  * @data: Struct for the program's data.
  *
  * Return: Always 0
  */
-int builtin_exit(data_of_program *data)
+int exitCommand(data_of_program *data)
 {
 int k;
 
@@ -28,12 +28,12 @@ exit(errno);
 }
 
 /**
- * builtin_cd - Change the current directory.
+ * cdCommand - Change the current directory.
  * @data: Struct for the program's data.
  *
  * Return: Always 0
  */
-int builtin_cd(data_of_program *data)
+int cdCommand(data_of_program *data)
 {
 char *dir_home = get_environment_value("HOME", data), *dir_old = NULL;
 char old_dir[128] = {0};
@@ -46,7 +46,7 @@ if (string_compare(data->tokens[1], "-", 0))
 dir_old = get_environment_value("OLDPWD", data);
 if (dir_old)
 {
-error_code = set_work_directory(data, dir_old);
+error_code = set_work_dir(data, dir_old);
 }
 write_to_stdout(get_environment_value("PWD", data));
 write_to_stdout("\n");
@@ -55,7 +55,7 @@ return (error_code);
 }
 else
 {
-return (set_work_directory(data, data->tokens[1]));
+return (set_work_dir(data, data->tokens[1]));
 }
 }
 else
@@ -65,19 +65,19 @@ if (!dir_home)
 dir_home = getcwd(old_dir, 128);
 }
 
-return (set_work_directory(data, dir_home));
+return (set_work_dir(data, dir_home));
 }
 return (0);
 }
 
 /**
- * set_work_directory - Set the working directory.
+ * set_work_dir - Set the working directory.
  * @data: Struct for the program's data.
  * @new_dir: Path to be set as the working directory.
  *
  * Return: Always 0
  */
-int set_work_directory(data_of_program *data, char *new_dir)
+int set_work_dir(data_of_program *data, char *new_dir)
 {
 char old_dir[128] = {0};
 int err_code = 0;
@@ -99,12 +99,12 @@ return (0);
 }
 
 /**
- * builtin_help - Display help information for builtins.
+ * built_help_inf - Display help information for builtins.
  * @data: Struct for the program's data.
  *
  * Return: Always 0
  */
-int builtin_help(data_of_program *data)
+int built_help_inf(data_of_program *data)
 {
 int k, length = 0;
 char *messages[6] = {NULL};
@@ -145,18 +145,18 @@ return (0);
 }
 
 /**
- * builtin_alias - Add, remove, or show aliases.
+ * builtinAlias - Add, remove, or show aliases.
  * @data: Struct for the program's data.
  *
  * Return: Always 0
  */
-int builtin_alias(data_of_program *data)
+int builtinAlias(data_of_program *data)
 {
 int k = 0;
 
 if (data->tokens[1] == NULL)
 {
-return (print_alias(data, NULL));
+return (alias_print(data, NULL));
 }
 
 while (data->tokens[++k])
@@ -164,11 +164,11 @@ while (data->tokens[++k])
 
 if (count_characters(data->tokens[k], "="))
 {
-set_alias(data->tokens[k], data);
+alias_set(data->tokens[k], data);
 }
 else
 {
-print_alias(data, data->tokens[k]);
+alias_print(data, data->tokens[k]);
 }
 }
 

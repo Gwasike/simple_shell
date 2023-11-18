@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
-* split_logical_operators - checks and split for && and || operators
+* split_log_operators - checks and split for && and || operators
 * @array_commands: array of the commands.
 * @k: index in the array_commands to be checked
 * @array_operators: array of the logical operators for each previous command
 *
 * Return: Always 0
 */
-int split_logical_operators(char *array_commands[], int k, char array_operators[])
+int split_log_operators(char *array_commands[], int k, char array_operators[])
 {
 char *temp = NULL;
 int j;
@@ -73,7 +73,7 @@ return (-1);
 k = 0;
 do {
 array_commands[k] = string_duplicate(_strtok(k ? NULL : buff, "\n;"));
-k = split_logical_operators(array_commands, k, array_operators);
+k = split_log_operators(array_commands, k, array_operators);
 } while (array_commands[k++]);
 }
 

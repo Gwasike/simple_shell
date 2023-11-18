@@ -1,21 +1,21 @@
 #include "shell.h"
 
 /**
- * check_file - checks if a file exists, if it is not a directory, and
+ * checkExecFile - checks if a file exists, if it is not a directory, and
  * if it has execution permissions.
  * @full_path: pointer to the full file name
  *
  * Return: Always 0
  */
-int check_file(char *full_path);
+int checkExecFile(char *full_path);
 
 /**
- * find_program - find a program in the PATH.
+ * findExecutable - find a program in the PATH.
  * @data: a pointer to the program's data
  *
  * Return: Always 0
  */
-int find_program(data_of_program *data)
+int findExecutable(data_of_program *data)
 {
 int k = 0, ret_code = 0;
 char **directories;
@@ -26,7 +26,7 @@ return (2);
 }
 if (data->command_name[0] == '/' || data->command_name[0] == '.')
 {
-return (check_file(data->command_name));
+return (checkExecFile(data->command_name));
 }
 free(data->tokens[0]);
 data->tokens[0] = string_concatenate(string_duplicate("/"), data->command_name);
@@ -35,7 +35,7 @@ if (!data->tokens[0])
 return (2);
 }
 
-directories = tokenize_path(data);
+directories = tokenizePath(data);
 
 if (!directories || !directories[0])
 {
@@ -45,29 +45,29 @@ return (127);
 for (k = 0; directories[k]; k++)
 {
 directories[k] = string_concatenate(directories[k], data->tokens[0]);
-ret_code = check_file(directories[k]);
+ret_code = checkExecFile(directories[k]);
 if (ret_code == 0 || ret_code == 126)
 {
 errno = 0;
 free(data->tokens[0]);
 data->tokens[0] = string_duplicate(directories[k]);
-free_array_of_pointers(directories);
+free_pointers(directories);
 return (ret_code);
 }
 }
 free(data->tokens[0]);
 data->tokens[0] = NULL;
-free_array_of_pointers(directories);
+free_pointers(directories);
 return (ret_code);
 }
 
 /**
- * tokenize_path - tokenize the PATH in directories.
+ * tokenizePath - tokenize the PATH in directories.
  * @data: a pointer to the program's data
  *
  * Return: ALways 0
  */
-char **tokenize_path(data_of_program *data)
+char **tokenizePath(data_of_program *data)
 {
 int k = 0;
 int counter_directories = 2;
@@ -103,12 +103,12 @@ return (tokens);
 }
 
 /**
- * check_file - checks if a file exists
+ * checkExecFile - checks if a file exists
  * @full_path: pointer to the full file name
  *
  * Return: Always 0
  */
-int check_file(char *full_path)
+int checkExecFile(char *full_path)
 {
 struct stat sb;
 
